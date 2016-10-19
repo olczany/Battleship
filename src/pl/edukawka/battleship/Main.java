@@ -2,18 +2,22 @@ package pl.edukawka.battleship;
 
 public class Main {
 
+    private enum State {
+        EMPTY, HIT, MISS, SUNK
+    }
+
     public static void main(String[] args) {
 
-        char [][] board = new char[10][10];
-        fillBoard(board); //test
-        printLetter(); //test2
+        State [][] board = new State[10][10];
+        fillBoard(board);
+        printLetter();
         printBoard(board);
         printLetter();
         printBoard(board);
 
     }
 
-    private static void fillBoard(char[][] board) {
+    private static void fillBoard(State[][] board) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 board[i][j] = getRandomShip(Math.random());
@@ -21,7 +25,7 @@ public class Main {
         }
     }
 
-    static void printLetter() {
+    private static void printLetter() {
         System.out.print("  ");
         for (int i = 0; i < 10; i++) {
             System.out.print((char) ('A' + i));
@@ -29,7 +33,7 @@ public class Main {
         System.out.print('\n');
     }
 
-    static void printBoard(char [][] board) {
+    private static void printBoard(State [][] board) {
         for (int i = 0; i < 10; i++) {
             int numberToPrint = i + 1;
             if (numberToPrint < 10) {
@@ -37,18 +41,35 @@ public class Main {
             }
             System.out.print(numberToPrint);
             for (int j = 0; j < 10; j++) {
-                char shipValue = board[i][j];
+                char shipValue = stateToChar(board[i][j]);
                 System.out.print(shipValue);
             }
             System.out.print('\n');
         }
     }
 
-    private static char getRandomShip(double random) {
+    private static char stateToChar(State state) {
+        char value;
+        switch (state) {
+            case EMPTY:
+                value = ' ';
+                break;
+            case MISS:
+                value = 'O';
+                break;
+            default:
+                value = '?';
+        }
+        return value;
+    }
+
+    private static State getRandomShip(double random) {
         if (random < 0.2) {
-            return 'O';
+            return State.HIT;
+        } else if(random > 0.8){
+            return State.EMPTY;
         } else {
-            return ' ';
+            return State.MISS;
         }
     }
 }
