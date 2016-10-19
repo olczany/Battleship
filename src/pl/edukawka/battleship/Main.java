@@ -5,8 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         char [][] board = new char[10][10];
-        fillBoard(board);
-
+        fillBoard(board); //test
         printLetter();
         printBoard(board);
         printLetter();
