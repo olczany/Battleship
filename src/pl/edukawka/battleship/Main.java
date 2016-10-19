@@ -6,7 +6,7 @@ public class Main {
 
         char [][] board = new char[10][10];
         fillBoard(board); //test
-        printLetter();
+        printLetter(); //test2
         printBoard(board);
         printLetter();
         printBoard(board);
